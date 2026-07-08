@@ -512,7 +512,7 @@ class ChargePoint(cp):
             except TimeoutError as timeout_exception:
                 timeout_counter += 1
                 _LOGGER.debug(
-                    f"Connection latency from '{self.cs_settings.csid}' to '{self.id}': "
+                    f"WebSocket ping timeout from '{self.cs_settings.csid}' to '{self.id}': "
                     f"ping={latency_ping} ms, pong={latency_pong} ms",
                 )
                 self._metrics[(0, cstat.latency_ping.value)].value = latency_ping

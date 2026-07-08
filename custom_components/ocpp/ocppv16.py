@@ -189,6 +189,19 @@ class ChargePoint(cp):
 
         effective_csv: str = ""
 
+        # Start Change
+        # Hardcode measurands to those supported by Ocular LTE Plus v3 as it ignores anything set in configuration
+        # Charger indicates it only accepts 4 measurements, but will accept a longer string and configure a truncated
+        # version of the string. It is not known if sending a larger value causes a memory overrun, so we'll only
+        # set a configuration of 4 - this should only occur the first time we run which means if setting it is causing
+        # an issue it will be ok on the second boot.
+        # Regardless of what we set in the config it will still send the 5.  
+        effective_csv = "Current.Import,Current.Offered,Energy.Active.Import.Register,Voltage,Power.Active.Import"
+        _LOGGER.debug("'%s' (DH) hardcoded measurands: '%s'", self.id, effective_csv)
+        await self.configure(key, "Current.Import,Current.Offered,Energy.Active.Import.Register,Voltage")
+        return effective_csv
+        # End Change
+
         if autodetect_measurands:
             if desired_csv:
                 _LOGGER.debug(

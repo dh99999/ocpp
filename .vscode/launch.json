@@ -19,14 +19,15 @@
     {
       // Example of attaching to my production server
       "name": "Python: Attach Remote",
-      "type": "python",
+      "type": "debugpy",
       "request": "attach",
       "port": 5678,
       "host": "homeassistant.local",
       "pathMappings": [
         {
           "localRoot": "${workspaceFolder}",
-          "remoteRoot": "/usr/src/homeassistant"
+//          "remoteRoot": "/usr/src/homeassistant"
+          "remoteRoot": "/config"
         }
       ]
     }
